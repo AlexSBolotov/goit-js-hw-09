@@ -16,3 +16,10 @@ img {
   display: block;
   max-width: 100%;
 }
+.btn-container {
+  text-align: center;
+  padding-top: 100px;
+}
+.btn-container > button {
+  padding: 12px 24px;
+}
