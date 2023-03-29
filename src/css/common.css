@@ -23,3 +23,37 @@ img {
 .btn-container > button {
   padding: 12px 24px;
 }
+.timer-container {
+  text-align: center;
+  padding-top: 100px;
+}
+.timer {
+  margin-top: 40px;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.value {
+  font-size: 60px;
+  width: 100px;
+  border: 2px solid #212121;
+  border-radius: 8px;
+  box-shadow: 2px 2px;
+}
+.label {
+  text-transform: uppercase;
+  font-size: 16px;
+}
+.timer-container > input {
+  height: 32px;
+}
+.timer-container > button {
+  padding: 8px 16px;
+  text-transform: uppercase;
+  font-size: 16px;
+}
