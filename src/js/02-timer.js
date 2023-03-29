@@ -10,12 +10,14 @@ const refs = {
   minutesFieldEl: document.querySelector('span[data-minutes]'),
   secondsFieldEl: document.querySelector('span[data-seconds]'),
 };
-// let currentDate = 0;
+
 let selectedDate = 0;
+let timerId = null;
 
 Notify.init({
   position: 'center-top',
 });
+
 refs.startBtn.disabled = true;
 
 const options = {
