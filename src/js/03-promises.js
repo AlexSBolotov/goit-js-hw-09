@@ -6,18 +6,23 @@ form.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
   e.preventDefault();
-  let delay = Number(e.currentTarget.elements.delay.value);
-  const step = Number(e.currentTarget.elements.step.value);
-  const amount = Number(e.currentTarget.elements.amount.value);
+  const {
+    delay: delayEl,
+    step: stepEl,
+    amount: amountEl,
+  } = e.currentTarget.elements;
+  let delay = Number(delayEl.value);
+  const step = Number(stepEl.value);
+  const amount = Number(amountEl.value);
   // console.dir(delay);
   for (let i = 1; i <= amount; i += 1) {
-    createPromise(i, delay)
-      .then(({ position, delay }) => {
-        Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
-      })
-      .catch(({ position, delay }) => {
-        Notify.failure(`Rejected promise ${position} in ${delay}ms`);
-      });
+    createPromise(i, delay).then(onSuccess).catch(onFailure);
+    // .then(({ position, delay }) => {
+    //   Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
+    // })
+    // .catch(({ position, delay }) => {
+    //   Notify.failure(`Rejected promise ${position} in ${delay}ms`);
+    // });
     delay += step;
   }
 }
@@ -35,4 +40,11 @@ function createPromise(position, delay) {
       }
     }, delay);
   });
+}
+
+function onSuccess({ position, delay }) {
+  Notify.success(`Fulfilled promise ${position} in ${delay}ms`);
+}
+function onFailure({ position, delay }) {
+  Notify.failure(`Rejected promise ${position} in ${delay}ms`);
 }

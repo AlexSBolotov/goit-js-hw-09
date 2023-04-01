@@ -12,13 +12,20 @@ refs.stopBtn.addEventListener('click', onStopBtnClick);
 
 function onStartBtnClick() {
   timerId = setInterval(setBgc, 1000);
-  refs.stopBtn.disabled = false;
-  refs.startBtn.disabled = true;
+  btnSwitcher(true, false);
+  // refs.stopBtn.disabled = false;
+  // refs.startBtn.disabled = true;
 }
 function onStopBtnClick() {
   clearInterval(timerId);
-  refs.startBtn.disabled = false;
-  refs.stopBtn.disabled = true;
+  btnSwitcher(false, true);
+  //   refs.startBtn.disabled = false;
+  //   refs.stopBtn.disabled = true;
+}
+
+function btnSwitcher(startBtnStatus, stopBtnStatus) {
+  refs.startBtn.disabled = startBtnStatus;
+  refs.stopBtn.disabled = stopBtnStatus;
 }
 
 function setBgc() {

@@ -5,11 +5,14 @@ import 'flatpickr/dist/flatpickr.min.css';
 const refs = {
   inputEl: document.querySelector('#datetime-picker'),
   startBtn: document.querySelector('button[data-start]'),
-  daysFieldEl: document.querySelector('span[data-days]'),
-  hoursFieldEl: document.querySelector('span[data-hours]'),
-  minutesFieldEl: document.querySelector('span[data-minutes]'),
+  outputEls: document.querySelectorAll('.value'),
+  // daysFieldEl: document.querySelector('span[data-days]'),
+  // hoursFieldEl: document.querySelector('span[data-hours]'),
+  // minutesFieldEl: document.querySelector('span[data-minutes]'),
   secondsFieldEl: document.querySelector('span[data-seconds]'),
 };
+// console.log(refs.outputEls);
+refs.outputEls.forEach(el => console.log(Object.keys(el.dataset)[0]));
 
 let selectedDate = 0;
 let timerId = null;
@@ -50,18 +53,38 @@ function onStartBtnClick() {
 function countDown() {
   const currentDate = Date.now();
   const deltaDate = selectedDate - currentDate;
-  const { days, hours, minutes, seconds } = convertMs(deltaDate);
-  //   console.log(deltaDate);
-  if (deltaDate < 1000) {
-    refs.secondsFieldEl.textContent = '00';
-    clearTimeout(timerId);
-    Notify.success('Time has passed!');
-    return;
-  }
-  refs.daysFieldEl.textContent = days;
-  refs.hoursFieldEl.textContent = hours;
-  refs.minutesFieldEl.textContent = minutes;
-  refs.secondsFieldEl.textContent = seconds;
+  // const { days, hours, minutes, seconds } = convertMs(deltaDate);
+
+  // if (deltaDate < 1000) {
+  //   refs.secondsFieldEl.textContent = '00';
+  //   clearTimeout(timerId);
+  //   Notify.success('Time has passed!');
+  //   return;
+  // }
+
+  refs.outputEls.forEach(el => {
+    const key = Object.keys(el.dataset)[0];
+    if (deltaDate < 1000) {
+      el.textContent = '00';
+      clearTimeout(timerId);
+      // Notify.success('Time has passed!');
+      return;
+    }
+    el.textContent = convertMs(deltaDate)[key];
+  });
+
+  // const dataTime = convertMs(deltaDate);
+
+  // for (const key in dataTime) {
+  //   [...refs.outputEls].forEach(el => {
+  //     if (el.dataset[key] === '') el.textContent = dataTime[key];
+  //   });
+  // }
+
+  // refs.daysFieldEl.textContent = days;
+  // refs.hoursFieldEl.textContent = hours;
+  // refs.minutesFieldEl.textContent = minutes;
+  // refs.secondsFieldEl.textContent = seconds;
 }
 
 function convertMs(ms) {
